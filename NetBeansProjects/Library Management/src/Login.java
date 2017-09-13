@@ -19,6 +19,7 @@ public class Login extends javax.swing.JFrame {
     Connection con;
     PreparedStatement pt;
     ResultSet rs;
+    static String name;
     /**
      * Creates new form Login
      */
@@ -190,6 +191,7 @@ public class Login extends javax.swing.JFrame {
             pt.setString(2,jTextField2.getText());
             rs=pt.executeQuery();
             if(rs.next()){
+                name=jTextField1.getText();
                 setVisible(false);
                 Loading ob=new Loading();
                 ob.startLoading();
