@@ -1,3 +1,10 @@
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +16,16 @@
  * @author Ajay Singh
  */
 public class Issue extends javax.swing.JFrame {
-
+    Connection con;
+    PreparedStatement pt;
+    ResultSet rs;
     /**
      * Creates new form Issue
      */
     public Issue() {
+        super("Issue Book");
         initComponents();
+        con=JavaConnect.connectDB();
     }
 
     /**
@@ -59,12 +70,18 @@ public class Issue extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true), "Book Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 251, 14))); // NOI18N
 
         jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Edition");
@@ -165,6 +182,11 @@ public class Issue extends javax.swing.JFrame {
         jLabel10.setText("Course");
 
         jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Name");
@@ -237,8 +259,18 @@ public class Issue extends javax.swing.JFrame {
         jLabel14.setText("Date of Issue");
 
         jButton3.setText("Issue");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Back");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -251,16 +283,18 @@ public class Issue extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(351, 351, 351))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(462, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(26, 26, 26)
                         .addComponent(jButton4)
-                        .addGap(211, 211, 211))))
+                        .addGap(211, 211, 211))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(30, 30, 30)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(197, 197, 197))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,13 +303,18 @@ public class Issue extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
                     .addComponent(jButton4))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -284,6 +323,107 @@ public class Issue extends javax.swing.JFrame {
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        Home ob=new Home();
+        ob.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        String sql="select * from Books where Book_ID=?";
+        try{
+            pt=con.prepareStatement(sql);
+            pt.setString(1,jTextField1.getText());
+            rs=pt.executeQuery();
+            if(rs.next()){
+                String add1=rs.getString("Name");
+                jTextField2.setText(add1);
+                String add2=rs.getString("Edition");
+                jTextField3.setText(add2);
+                String add3=rs.getString("Publisher");
+                jTextField4.setText(add3);
+                String add4=rs.getString("Price");
+                jTextField5.setText(add4);
+                String add5=rs.getString("Pages");
+                jTextField6.setText(add5);
+            }else{
+                JOptionPane.showMessageDialog(null, "Book not found");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }finally{
+            try{
+                rs.close();
+                pt.close();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         String sql="select * from Student where Student_ID=?";
+        try{
+            pt=con.prepareStatement(sql);
+            pt.setString(1,jTextField7.getText());
+            rs=pt.executeQuery();
+            if(rs.next()){
+                String add1=rs.getString("Name");
+                jTextField8.setText(add1);
+                String add2=rs.getString("Father");
+                jTextField9.setText(add2);
+                String add3=rs.getString("Course");
+                jTextField10.setText(add3);
+                String add4=rs.getString("Branch");
+                jTextField11.setText(add4);
+                String add5=rs.getString("Year");
+                jTextField12.setText(add5);
+                String add6=rs.getString("Sem");
+                jTextField13.setText(add6);
+            }else{
+                JOptionPane.showMessageDialog(null, "Student not found");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }finally{
+            try{
+                rs.close();
+                pt.close();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        String sql="insert into Issue (Book_ID,BName,Edition,Publisher,Price,Pages,Student_ID,SName,Father,Course,Branch,Year,Sem,DateofIssue) Values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        try{
+            pt=con.prepareStatement(sql);
+            pt.setString(1,jTextField1.getText());
+            pt.setString(2,jTextField2.getText());
+            pt.setString(3,jTextField3.getText());
+            pt.setString(4,jTextField4.getText());
+            pt.setString(5,jTextField5.getText());
+            pt.setString(6,jTextField6.getText());
+            pt.setString(7,jTextField7.getText());
+            pt.setString(8,jTextField8.getText());
+            pt.setString(9,jTextField9.getText());
+            pt.setString(10,jTextField10.getText());
+            pt.setString(11,jTextField11.getText());
+            pt.setString(12,jTextField12.getText());
+            pt.setString(13,jTextField13.getText());
+            pt.setString(14, ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText());
+            pt.execute();
+            JOptionPane.showMessageDialog(null, "Book Issued");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,6 +465,7 @@ public class Issue extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
