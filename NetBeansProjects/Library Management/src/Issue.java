@@ -416,7 +416,7 @@ public class Issue extends javax.swing.JFrame {
             pt.setString(10,jTextField10.getText());
             pt.setString(11,jTextField11.getText());
             pt.setString(12,jTextField12.getText());
-            pt.setString(13,jTextField13.getText());
+            pt.setString(13,jTextField13.getText());//
             pt.setString(14, ((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText());
             pt.execute();
             JOptionPane.showMessageDialog(null, "Book Issued");
