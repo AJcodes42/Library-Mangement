@@ -203,7 +203,7 @@ public class Login extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null,e);
         }finally{
-            JavaConnect.closeConnection();
+            
             try{
                 pt.close();
                 rs.close();
